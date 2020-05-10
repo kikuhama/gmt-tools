@@ -1,0 +1,10 @@
+db:
+  host: localhost
+  database: gis
+  user: gis
+  password: password
+  dem10: dem10
+path:
+  gdal: /usr/bin
+  gmt: /usr/bin
+  imagemagick: /usr/bin
