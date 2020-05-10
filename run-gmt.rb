@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require "yaml"
-$LOAD_PATH << File.expand_path("../", __FILE__)
+$LOAD_PATH << File.expand_path("../", File.realpath(__FILE__))
 require "gmt-tools-lib"
 require "gmt-tools-config"
 

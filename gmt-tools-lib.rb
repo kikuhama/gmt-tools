@@ -11,11 +11,11 @@ class GmtToolsLib
     @data = data
     @work_dir = File.expand_path(@data[:work])
     @output_dir = File.expand_path(@data[:output][:dir])
-    make_work_dir
     @dem_file = File.join(@work_dir, "dem.nc")
     @grad_file = File.join(@work_dir, "dem-grad.nc")
+    @palet_file = File.join(@work_dir, "palet.cpt")
     @log_file = File.join(@work_dir, "gmt-tools.log")
-    @logger = Logger.new(@log_file)
+    make_work_dir
     basename = @data[:output][:basename]
     @eps_file = File.join(@output_dir, basename + ".eps")
     @pdf_file = File.join(@output_dir, basename + ".pdf")
@@ -88,8 +88,7 @@ EOS
   end
 
   def gmt_color_palet
-    path = File.expand_path(@data[:palet], @dir)
-    "-C#{path}"
+    "-C#{@palet_file}"
   end
 
   def gmt_z_scale
@@ -152,11 +151,13 @@ EOS
   def make_work_dir
     STDERR.print "work_dir: #{@work_dir}\n"
     FileUtils.mkdir_p @work_dir
+    @logger = Logger.new(@log_file)
     gmt_config = @config.gmt_config_file
     work_gmt_config = File.join(@work_dir, "gmt.conf")
     if File.exists?(gmt_config) && !File.exists?(work_gmt_config)
       FileUtils.cp gmt_config, work_gmt_config
     end
+    IO.write(@palet_file, @data[:palet])
   end
 
   def gdal_cmd(cmd)
