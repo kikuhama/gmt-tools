@@ -17,9 +17,10 @@ class GmtToolsLib
     @log_file = File.join(@work_dir, "gmt-tools.log")
     make_work_dir
     basename = @data[:output][:basename]
-    @eps_file = File.join(@output_dir, basename + ".eps")
-    @pdf_file = File.join(@output_dir, basename + ".pdf")
+    @eps_file = basename + ".eps"
+    @pdf_file = basename + ".pdf"
     @gmt = '"' + File.join(@config.gmt_path, "gmt") + '"'
+    @gs = '"' + @config.ghostscript_path + '"'
   end
 
   def run
@@ -143,9 +144,12 @@ EOS
 
   def make_pdf
     resolution = @data[:resolution] ? @data[:resolution] : 300
-    convert = imagemagick_cmd("convert")
-    cmd = "#{convert} -density #{resolution} #{@eps_file} #{@pdf_file}"
+    cmd = "#{@gs} -q -dSAFER -dBATCH -dNOPAUSE -dEPSCrop -r#{resolution} -sDEVICE=pdfwrite -o #{@pdf_file} #{@eps_file}"
     exec_cmd cmd
+    FileUtils.mv @eps_file, @output_dir
+    if File.exists?(@pdf_file)
+      FileUtils.mv @pdf_file, @output_dir
+    end
   end
 
   def make_work_dir

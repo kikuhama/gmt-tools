@@ -39,6 +39,10 @@ class GmtToolsConfig
     @config[:path][:imagemagick].to_s
   end
 
+  def ghostscript_path
+    @config[:path][:ghostscript].to_s
+  end
+
   private
   def load
     @config = {
