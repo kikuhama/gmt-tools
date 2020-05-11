@@ -122,7 +122,7 @@ EOS
       # create dem file
       db_str = gdal_dem_db_str
       gdal_translate = gdal_cmd("gdal_translate")
-      cmd = "#{gdal_translate} -of GMT #{gdal_projwin} '#{db_str}' #{@dem_file}"
+      cmd = "#{gdal_translate} -of GMT #{gdal_projwin} \"#{db_str}\" #{@dem_file}"
       exec_cmd cmd
     end
     make_dem_grad
