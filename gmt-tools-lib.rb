@@ -19,7 +19,7 @@ class GmtToolsLib
     basename = @data[:output][:basename]
     @eps_file = File.join(@output_dir, basename + ".eps")
     @pdf_file = File.join(@output_dir, basename + ".pdf")
-    @gmt = File.join(@config.gmt_path, "gmt")
+    @gmt = '"' + File.join(@config.gmt_path, "gmt") + '"'
   end
 
   def run
@@ -144,7 +144,7 @@ EOS
   def make_pdf
     resolution = @data[:resolution] ? @data[:resolution] : 300
     convert = imagemagick_cmd("convert")
-    cmd = "convert -density #{resolution} #{@eps_file} #{@pdf_file}"
+    cmd = "#{convert} -density #{resolution} #{@eps_file} #{@pdf_file}"
     exec_cmd cmd
   end
 
@@ -161,11 +161,11 @@ EOS
   end
 
   def gdal_cmd(cmd)
-    File.join(@config.gdal_path, cmd)
+    '"' + File.join(@config.gdal_path, cmd) + '"'
   end
 
   def imagemagick_cmd(cmd)
-    File.join(@config.imagemagick_path, cmd)
+    '"' + File.join(@config.imagemagick_path, cmd) + '"'
   end
   
   def exec_cmd(cmd)
