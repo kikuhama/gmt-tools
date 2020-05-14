@@ -112,6 +112,8 @@ EOS
     case @data[:dem]
     when "dem10"
       db_str = @config.gdal_db_dem10
+    when "srtm3"
+      db_str = @config.gdal_db_srtm3
     else
       raise "Invalid dem setting: #{@data[:dem]}"
     end
