@@ -4,6 +4,8 @@ db:
   user: gis
   password: password
   dem10: dem10
+  gebco: gebco
+  srtm3: srtm3
 path:
   gdal: /usr/bin
   gmt: /usr/bin
