@@ -119,6 +119,8 @@ EOS
       db_str = @config.gdal_db_dem10
     when "srtm3"
       db_str = @config.gdal_db_srtm3
+    when "gebco"
+      db_str = @config.gdal_db_gebco
     else
       raise "Invalid dem setting: #{@data[:dem]}"
     end

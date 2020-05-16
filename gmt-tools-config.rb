@@ -19,6 +19,10 @@ class GmtToolsConfig
     gdal_db_str @config[:db][:srtm3], {mode: 2}
   end
 
+  def gdal_db_gebco
+    gdal_db_str @config[:db][:gebco], {mode: 2}
+  end
+
   def gdal_db_str(table, opts = {})
     host = @config[:db][:host]
     db = @config[:db][:database]
