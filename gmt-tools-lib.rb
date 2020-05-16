@@ -1,13 +1,18 @@
 require "fileutils"
 require "logger"
-require "gmt-tools-config"
 
 class GmtToolsLib
-  def initialize(data_file)
+  def initialize()
     @config = GmtToolsConfig.instance
-    data = YAML.load(IO.read(data_file), symbolize_names: true)
+    @modified_at = Time.now
+  end
+
+  def load_from_file(data_file)
     @modified_at = File.mtime(data_file)
-    @dir = File.dirname(File.absolute_path(data_file))
+    data = YAML.load(IO.read(data_file), symbolize_names: true)
+  end
+
+  def load(data)
     @data = data
     @work_dir = File.expand_path(@data[:work])
     @output_dir = File.expand_path(@data[:output][:dir])
@@ -146,7 +151,9 @@ EOS
 
   def make_pdf
     resolution = @data[:resolution] ? @data[:resolution] : 300
-    cmd = "#{@gs} -q -dSAFER -dBATCH -dNOPAUSE -dEPSCrop -r#{resolution} -sDEVICE=pdfwrite -o #{@pdf_file} #{@eps_file}"
+    #cmd = "#{@gs} -q -dSAFER -dBATCH -dNOPAUSE -dEPSCrop -r#{resolution} -sDEVICE=pdfwrite -o #{@pdf_file} #{@eps_file}"
+    convert = imagemagick_cmd("convert")
+    cmd = "#{convert} -density #{resolution} #{@eps_file} #{@pdf_file}"
     exec_cmd cmd
     FileUtils.mv @eps_file, @output_dir
     if File.exists?(@pdf_file)

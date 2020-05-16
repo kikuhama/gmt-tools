@@ -1,5 +1,6 @@
 require "yaml"
 require "singleton"
+require "mattermost"
 
 class GmtToolsConfig
   include Singleton
@@ -45,6 +46,32 @@ class GmtToolsConfig
 
   def ghostscript_path
     @config[:path][:ghostscript].to_s
+  end
+
+  def generated_files_path
+    @config[:path][:generated_files].to_s
+  end
+
+  def mm_client
+    mm = Mattermost.new_client(@config[:mattermost][:server])
+    mm.use_access_token(@config[:mattermost][:access_token])
+    mm
+  end
+
+  def mm_server
+    @config[:mattermost][:server]
+  end
+
+  def mm_access_token
+    @config[:mattermost][:access_token]
+  end
+
+  def generated_pdf_file(job_id)
+    @config[:download][:base_uri] + "/file/#{job_id}.pdf" 
+  end
+
+  def generated_eps_file(job_id)
+    @config[:download][:base_uri] + "/file/#{job_id}.eps" 
   end
 
   private

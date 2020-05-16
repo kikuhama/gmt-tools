@@ -8,3 +8,10 @@ path:
   gdal: /usr/bin
   gmt: /usr/bin
   imagemagick: /usr/bin
+  generated_files: /home/user/files
+mattermost:
+  server: https://chat.hamajima.co.jp
+  access_token: *** fill me ***
+  outgoing_hook_token: *** fill me ***
+download:
+  base_uri: http://example.com/

@@ -15,5 +15,6 @@ if ARGV.length < 1
   exit 1
 end
 
-tool = GmtToolsLib.new(ARGV[0])
+tool = GmtToolsLib.new()
+tool.load_from_file ARGV[0]
 tool.run
