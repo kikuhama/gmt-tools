@@ -74,6 +74,7 @@ EOS
     cmd = <<EOS
 #{@gmt} grdimage #{@dem_file} -I#{@grad_file} #{gmt_range} #{gmt_proj_method} #{gmt_sea_level} #{gmt_color_palet} #{gmt_resolution} #{opts_str} >> #{@eps_file}
 EOS
+    exec_cmd cmd
   end
 
   def gmt_range
