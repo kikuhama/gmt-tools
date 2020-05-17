@@ -55,6 +55,7 @@ class GmtToolsLib
         end
       end
       make_pdf
+      move_log
     end
   end
 
@@ -203,6 +204,12 @@ EOS
     rescue => ex
       log_error ex
       raise ex
+    end
+  end
+
+  def move_log
+    if File.exists?(@log_file)
+      FileUtils.mv @log_file, @output_dir
     end
   end
 
