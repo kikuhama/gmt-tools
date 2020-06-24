@@ -10,12 +10,21 @@ class GmtToolsLib
   def load_from_file(data_file)
     @modified_at = File.mtime(data_file)
     data = YAML.load(IO.read(data_file), symbolize_names: true)
+    load data
   end
 
   def load(data)
     @data = data
-    @work_dir = File.expand_path(@data[:work])
-    @output_dir = File.expand_path(@data[:output][:dir])
+    begin
+      @work_dir = File.expand_path(@data[:work])
+    rescue
+      @work_dir = Dir.pwd
+    end
+    begin
+      @output_dir = File.expand_path(@data[:output][:dir])
+    rescue
+      @output_dir = Dir.pwd
+    end
     @dem_file = File.join(@work_dir, "dem.nc")
     @grad_file = File.join(@work_dir, "dem-grad.nc")
     @palet_file = File.join(@work_dir, "palet.cpt")

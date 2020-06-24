@@ -4,6 +4,7 @@ GEM
     backports (3.17.1)
     event_emitter (0.2.6)
     eventmachine (1.2.7)
+    eventmachine (1.2.7-x64-mingw32)
     faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.14.0)
@@ -48,6 +49,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   mattermost-api4-ruby

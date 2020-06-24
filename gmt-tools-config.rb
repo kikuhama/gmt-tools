@@ -1,6 +1,5 @@
 require "yaml"
 require "singleton"
-require "mattermost"
 
 class GmtToolsConfig
   include Singleton
@@ -57,6 +56,7 @@ class GmtToolsConfig
   end
 
   def mm_client
+    require "mattermost"
     mm = Mattermost.new_client(@config[:mattermost][:server])
     mm.use_access_token(@config[:mattermost][:access_token])
     mm

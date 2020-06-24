@@ -4,6 +4,8 @@ $LOAD_PATH << File.expand_path("../", File.realpath(__FILE__))
 require "gmt-tools-lib"
 require "gmt-tools-config"
 
+Encoding.default_external = Encoding::UTF_8
+
 def usage
   STDERR.print <<EOS
 #{$0} yaml_file
